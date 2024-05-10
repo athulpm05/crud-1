@@ -1,7 +1,9 @@
 // ignore_for_file: camel_case_types, prefer_const_constructors, use_full_hex_values_for_flutter_colors, prefer_const_literals_to_create_immutables, unused_local_variable
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:newproject222/screens/floting_.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -17,8 +19,21 @@ class _SignupState extends State<Signup> {
   var password = TextEditingController();
 
   Future<void> register() async {
-    final adddata = await FirebaseFirestore.instance.collection('register').add(
+    try{
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword
+      (email: email.text, password: password.text);
+
+      String authenticationid = userCredential.user!.uid;
+      await FirebaseFirestore.instance.collection('register').doc(authenticationid).set(
         {'name': name.text, 'email': email.text, 'password': password.text});
+
+        print("User registration successfully");
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Floatbutton1(),));
+
+    }on FirebaseAuthException catch (e){
+       print("Fialed registration user:$e");
+       String errormasage ="registration failed";
+    }
   } 
 
   @override

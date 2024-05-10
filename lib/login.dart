@@ -1,7 +1,8 @@
 // ignore_for_file: camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables, use_full_hex_values_for_flutter_colors
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:newproject222/Forgetpass.dart';
+import 'package:newproject222/forgetpass1.dart';
 import 'package:newproject222/screens/floting_.dart';
 import 'package:newproject222/signup.dart';
 
@@ -33,7 +34,7 @@ class _LoginState extends State<Login> {
               children: [
                 Container(
                   width: 370,
-                  height: 350,
+                  height: 450,
                   decoration: BoxDecoration(
                     color: Color(0xffb4466b2).withOpacity(0.3)
                   ),
@@ -106,6 +107,16 @@ class _LoginState extends State<Login> {
                           ],
                         ),
                       ),
+                       TextButton(onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Forgetpass1(),));
+                      },
+                       child: Text("Forget password")),
+
+                       //2
+                       TextButton(onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Forgetpass2(),));
+                      },
+                       child: Text("Forget password 2")),
                       Padding(
                         padding: const EdgeInsets.only(top: 50),
                         child: Row(
