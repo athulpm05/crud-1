@@ -1,8 +1,8 @@
 // ignore_for_file: camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables, use_full_hex_values_for_flutter_colors
 
 import 'package:flutter/material.dart';
-import 'package:newproject222/fo.dart';
 import 'package:newproject222/forgetpass1.dart';
+import 'package:newproject222/forgetpass2.dart';
 import 'package:newproject222/screens/floting_.dart';
 import 'package:newproject222/signup.dart';
 
