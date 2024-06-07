@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:newproject222/forgetpass1.dart';
 import 'package:newproject222/forgetpass2.dart';
-import 'package:newproject222/screens/floting_.dart';
+import 'package:newproject222/screens/registration.dart';
 import 'package:newproject222/signup.dart';
 
 class Login extends StatefulWidget {
@@ -18,8 +18,14 @@ class _LoginState extends State<Login> {
  final valid = GlobalKey<FormState>();
   var name=TextEditingController();
   var password=TextEditingController();
+  var email = emailController();
 
- 
+
+   Future<void> _saveStoreIdToSharedPreferences(String storeId) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('storeId', storeId);
+    }
+
 
   @override
   Widget build(BuildContext context) {
@@ -102,8 +108,14 @@ class _LoginState extends State<Login> {
                                     borderSide: BorderSide(color: Colors.black)
                                   )
                                 ),
+                                validator: (value) {
+                                  if(value==null||value.isEmpty){}
+                                },
                               ),
-                            )
+
+                              
+                            ),
+                            
                           ],
                         ),
                       ),
@@ -123,9 +135,37 @@ class _LoginState extends State<Login> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InkWell(
-                              onTap: (){
-                                Navigator.push(context, 
-                                MaterialPageRoute(builder: (context) => Floatbutton1()));
+                              onTap: ()async{
+
+                                 if (_formKey.currentState!.validate()) {
+                    String email = emailController.text.trim();
+                    String password = passwordController.text.trim();
+                    var querySnapshot = await FirebaseFirestore.instance
+                        .collection('storekeeper')
+                        .where('email', isEqualTo: email)
+                        .limit(1)
+                        .get();
+
+                    if (querySnapshot.docs.isNotEmpty) {
+                      var userData = querySnapshot.docs.first.data();
+                      if (userData['password'] == password) {
+                        await _saveStoreIdToSharedPreferences(
+                            userData['storeId']);
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const StoreBottomNavigation(),
+                          ),
+                        );
+                      } else {
+                        print('Incorrect password');
+                      }
+                    } else {
+                      print('User not found');
+                    }
+                  }
+
                               },
                               child: Container(
                                 width: 300,

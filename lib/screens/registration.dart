@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_typing_uninitialized_variables, unused_local_variable, non_constant_identifier_names, avoid_unnecessary_containers
 
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +38,7 @@ class _Floatbutton1State extends State<Floatbutton1> {
         backgroundColor: Colors.grey,
         title: Text("Crud"),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+          IconButton(onPressed: () {}, icon: CircleAvatar(backgroundColor: Colors.amber)),
         ],
       ),
       body: StreamBuilder(
@@ -54,6 +52,7 @@ class _Floatbutton1State extends State<Floatbutton1> {
               child: CircularProgressIndicator(),
             );
           }
+
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
@@ -75,6 +74,7 @@ class _Floatbutton1State extends State<Floatbutton1> {
                           _taskIdForUpdate = documentId.id;
                           controllerName.text = documentId['Name'];
                           controllerActivity.text = documentId['Activity'];
+
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
@@ -122,6 +122,7 @@ class _Floatbutton1State extends State<Floatbutton1> {
                                     },
                                     child: Text('Cancel'),
                                   ),
+
                                   TextButton(
                                     onPressed: () {
                                       if (controllerName.text.isNotEmpty) {
@@ -145,6 +146,7 @@ class _Floatbutton1State extends State<Floatbutton1> {
                           );
                         },
                       ),
+
                       IconButton(
                           onPressed: () {
                             FirebaseFirestore.instance
@@ -161,7 +163,6 @@ class _Floatbutton1State extends State<Floatbutton1> {
           );
         },
       ),
-
       floatingActionButton: FloatingActionButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
@@ -206,6 +207,7 @@ class _Floatbutton1State extends State<Floatbutton1> {
                       ),
                     ),
                   ),
+
                   actions: <Widget>[
                     TextButton(
                         onPressed: () {
@@ -232,6 +234,7 @@ class _Floatbutton1State extends State<Floatbutton1> {
                 );
               });
         },
+
         backgroundColor: Colors.blue[200],
         child: Icon(Icons.add, size: 30),
       ),
